@@ -1,0 +1,6 @@
+name,found,rank,target_id,identified_by,in_top_n,status
+IsPETase,False,,,,False,not_found
+LCC,False,,,,False,not_found
+PHL7,False,,,,False,not_identifiable
+ThermoPETase,False,,,,False,not_found
+FAST-PETase,False,,,,False,not_found

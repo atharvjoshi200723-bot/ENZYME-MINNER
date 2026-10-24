@@ -1,0 +1,6 @@
+name,uniprot_id,organism,T_opt_C,notes,source
+IsPETase,A0A0K8P8V0,Ideonella sakaiensis,30,Seed enzyme; mesophile; PDB 5XJH,https://www.rcsb.org/structure/5XJH
+LCC,G9BY57,uncultured bacterium (leaf-branch compost metagenome),72,Thermostable benchmark positive control; PDB 4EB0; PET hydrolysis up to ~72 C,https://www.uniprot.org/uniprotkb/G9BY57/entry
+PHL7,TODO_VERIFY,plant-compost metagenome (unidentified),70,Thermostable benchmark positive control; wild-type UniProt accession unresolved; PDB 7NEI is wild type; A0AA82WPD4 is the S131A mutant only,https://www.rcsb.org/structure/7NEI
+ThermoPETase,TODO_VERIFY,Engineered variant of IsPETase,60,Engineered; not a natural isolate; no verified accession TODO,https://doi.org/10.1038/s41586-020-2149-4
+FAST-PETase,TODO_VERIFY,Engineered variant of IsPETase,50,Engineered; not a natural isolate; no verified accession TODO,https://doi.org/10.1038/s41586-022-04599-z

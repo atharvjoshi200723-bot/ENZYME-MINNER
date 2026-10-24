@@ -1,0 +1,98 @@
+# ============================================================
+# Enzyme Miner – central configuration
+# All thresholds and external names live here so you never
+# have to hunt through source files to tune them.
+# ============================================================
+
+# ---------- Seed structure ---------------------------------
+seed:
+  pdb_id: "5XJH"           # IsPETase crystal structure
+  chain: "A"
+  # Where the downloaded seed PDB is cached
+  cache_path: ".cache/seed_5XJH.pdb"
+  download_url: "https://files.rcsb.org/download/{pdb_id}.pdb"
+
+# ---------- Catalytic triad (IsPETase numbering) -----------
+# Residue numbers as they appear in the SEED PDB file (author numbering).
+# The pipeline translates them to Foldseek query-sequence indices automatically.
+triad:
+  ser: 160    # nucleophile
+  his: 237    # general base
+  asp: 206    # charge relay
+
+  # Distance thresholds for "catalytically plausible" geometry.
+  # These are generous – we are predicting candidates, not proving activity.
+  max_ser_his_dist_angstrom: 4.5    # Ser OG – His NE2
+  max_asp_his_dist_angstrom: 4.5    # Asp OD1/OD2 (closest) – His ND1
+
+# ---------- Foldseek search --------------------------------
+foldseek:
+  server_url: "https://search.foldseek.com"
+
+  # Endpoints verified live against search.foldseek.com on 2026-10-24.
+  # If Foldseek changes them the client fails with the HTTP status, it does
+  # not guess an alternative path.
+  endpoints:
+    submit: "/api/ticket"             # POST multipart: q, database[], mode
+    ticket: "/api/ticket/{ticket_id}" # GET -> {"id": ..., "status": ...}
+    result: "/api/result/{ticket_id}/{db_index}"  # GET -> JSON (or archive)
+    databases: "/api/databases"       # GET -> {"databases": [...]}
+
+  # Database names as returned by /api/databases (the "path" field).
+  # Verified live on 2026-10-24: afdb50 = AlphaFold/UniProt50 v6,
+  # mgnify_esm30 = MGnify-ESM30 v1. The client validates these at runtime
+  # and fails with the current list if one is wrong.
+  databases:
+    - "afdb50"          # AlphaFold DB, UniProt50 cluster (has taxonomy)
+    - "mgnify_esm30"    # MGnify ESMFold models (NO taxonomy in Foldseek)
+
+  mode: "3diaa"         # "3diaa" (3Di+AA) or "tmalign"
+  max_hits: 500         # trim locally after download
+  # "fold match" cutoff for the funnel. Ranking, not proof of homology.
+  min_probability: 0.8
+  poll_interval_sec: 10
+  max_poll_attempts: 60
+  request_timeout_sec: 60
+  retries: 3
+  min_request_interval_sec: 1.0   # polite client-side rate limit
+  # Local disk cache for raw API responses (avoid hammering the server)
+  cache_dir: ".cache/foldseek"
+
+# ---------- pLDDT filtering --------------------------------
+plddt:
+  pocket_radius_angstrom: 8.0   # residues within this distance of any triad atom
+  min_mean_plddt: 80.0          # drop hits below this average pocket confidence
+  # AlphaFold DB prediction API (verified live on 2026-10-24)
+  api_url: "https://alphafold.ebi.ac.uk/api/prediction/{accession}"
+  cache_dir: ".cache/alphafold"
+  request_timeout_sec: 60
+  retries: 3
+  min_request_interval_sec: 0.5
+
+# ---------- Thermophile ranking ----------------------------
+thermo:
+  data_file: "data/thermophiles.csv"
+  # Ranking score for a hit = approx_T_opt_C of its matched genus.
+  # Hits with no host information are kept but scored below every known host.
+  unknown_host_score: 0.0
+  # Genus match is case-insensitive and exact; no fuzzy matching.
+  match_column: "genus"
+  temperature_column: "approx_T_opt_C"
+
+# ---------- Output -----------------------------------------
+output:
+  cache_dir: ".cache"
+  results_csv: "results/ranked_candidates.csv"
+  funnel_json: "results/funnel.json"
+  top_n: 20    # how many rows to show in the Streamlit table
+
+# ---------- Benchmark --------------------------------------
+benchmark:
+  known_enzymes_file: "data/known_pet_hydrolases.csv"
+  top_n: 10
+  # Controls that must appear in the top N for the rediscovery test to pass.
+  # This list says which enzymes are required, not what the answer is.
+  required_enzymes:
+    - "LCC"
+    - "PHL7"
+  results_csv: "results/benchmark.csv"

@@ -1,0 +1,16 @@
+genus,approx_T_opt_C,source
+Thermus,75,https://doi.org/10.1016/j.tibtech.2003.09.004
+Thermotoga,80,https://doi.org/10.1016/j.tibtech.2003.09.004
+Pyrococcus,100,https://doi.org/10.1016/j.tibtech.2003.09.004
+Sulfolobus,80,https://doi.org/10.1016/j.tibtech.2003.09.004
+Archaeoglobus,83,https://doi.org/10.1016/j.tibtech.2003.09.004
+Methanobacterium,65,https://doi.org/10.1016/j.tibtech.2003.09.004
+Aquifex,95,https://doi.org/10.1016/j.tibtech.2003.09.004
+Bacillus,55,https://www.ncbi.nlm.nih.gov/books/NBK8099/
+Geobacillus,60,https://doi.org/10.1016/j.resmic.2009.10.002
+Thermobifida,55,https://doi.org/10.1111/j.1574-6968.1991.tb04533.x
+Thermoanaerobacter,68,https://doi.org/10.1016/j.tibtech.2003.09.004
+Caldicellulosiruptor,78,https://doi.org/10.1038/ncomms2543
+Methanopyrus,110,https://doi.org/10.1073/pnas.94.11.5670
+Ignicoccus,90,https://doi.org/10.1007/s007920050008
+Deinococcus,48,https://doi.org/10.1099/ijs.0.02458-0

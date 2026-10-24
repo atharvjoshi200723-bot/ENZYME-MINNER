@@ -1,0 +1,16 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Runtime caches (Foldseek JSON, AlphaFold models, seed PDB, logs)
+.cache/
+*.log
+
+# Local secrets (none are used by the prototype, but keep them out anyway)
+.env
+.streamlit/secrets.toml
+
+# macOS
+.DS_Store

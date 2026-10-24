@@ -1,0 +1,11 @@
+{
+  "foldseek_hits": 10,
+  "fold_match": 10,
+  "structure_available": 10,
+  "triad_intact": 6,
+  "confident_pocket": 5,
+  "final_shortlist": 5,
+  "dropped_no_structure": 0,
+  "dropped_triad": 4,
+  "dropped_low_plddt": 1
+}
